@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             const items = textInput.value.trim();
             if (items == 0) {
-                const msg = "Please enter the task is required!"
+                const msg = "Please enter the task"
                 const error = document.getElementById('error');
                 error.innerHTML = msg
 
@@ -157,7 +157,7 @@ const gettodos = async function () {
                     </div>`
         });
     } else {
-        html += `<div class="todo">
+        html += `<div class="todo1">
                     <li class="todo-items">No record found</li>     
                     </div>`
     }

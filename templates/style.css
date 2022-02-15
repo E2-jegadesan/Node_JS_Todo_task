@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 html, body{
-    background: #2a1d3d;
+    background: #204141;
 }
 
 header , h1{
@@ -104,6 +104,18 @@ span{
     transition: all 0.5s ease;
 
 }
+.todo1{
+    width: 389px;
+    overflow: hidden;
+    margin: 5px 0px;
+    background:white;
+    color: black;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.5s ease;
+}
 .todo li {
     min-height: 18px;
     flex: 1;
@@ -116,7 +128,9 @@ span{
 }
 .todo-items{
     text-align: center;
+    justify-content: center;
     margin: 4px;
+    margin-left: 140px;
 }
 .new-item{
     padding: 10px;
@@ -188,6 +202,11 @@ span{
         margin: 12px;
         margin-left: 16px;
     }
+    .todo1{
+        width: 353px;
+        margin: 12px;
+        margin-left: 16px;
+    }
     .newtodo{
         width: 353px;
         margin-left: 12px;
@@ -198,6 +217,12 @@ span{
         margin-top: -45px;
         color: #f00f0f;
         height: 11px;
+    }
+    .todo-items{
+        text-align: center;
+        justify-content: center;
+        margin: 4px;
+        margin-left: 120px;
     }
   }
   
