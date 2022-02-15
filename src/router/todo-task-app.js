@@ -55,7 +55,7 @@ router.delete('/tasks/deleteTask', async(req,res)=>{
         if(!task){
             res.status(404).send()
         }
-        res.status(200).send({task,message: 'Task Deleted..!',status:'Success'})
+        res.status(200).send({task,message: 'Task Deleted Successfully',status:'Success'})
     }catch(e){
         res.status(500).send({message:'Id is required',status:'Failure'})
     }
