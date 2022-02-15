@@ -37,11 +37,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                     .then((response) => response.json())
                     .then((data) => {
-                        iziToast.success({
-                            title: 'Success',
-                            message: data.message,
-                            position: 'topRight',
-                        });
+                        if(data.status == 'Success'){
+                            iziToast.success({
+                                title: 'Success',
+                                message: data.message,
+                                position: 'topRight'
+                            });
+                        }else{
+                            iziToast.error({
+                                title: 'Failure',
+                                message: data.message,
+                                position: 'topRight'
+                            });
+                        }
                     })
 
                     .catch((error) => {
@@ -71,11 +79,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                         .then((response) => response.json())
                         .then((data) => {
-                            iziToast.success({
-                                title: 'Success',
-                                message: data.message,
-                                position: 'topRight'
-                            });
+                            console.log(data)
+                            if(data.status == 'Success'){
+                                iziToast.success({
+                                    title: 'Success',
+                                    message: data.message,
+                                    position: 'topRight'
+                                });
+                            }else{
+                                iziToast.error({
+                                    title: 'Failure',
+                                    message: data.message,
+                                    position: 'topRight'
+                                });
+                            }
+                           
                             gettodos();
                         })
                         .catch((error) => {
@@ -140,7 +158,7 @@ const gettodos = async function () {
         });
     } else {
         html += `<div class="todo">
-                    <li class="todo-item">NO RECORD FOUND</li>     
+                    <li class="todo-items">No record found</li>     
                     </div>`
     }
 
@@ -165,11 +183,20 @@ function Taskstatus(value, done) {
         })
             .then((response) => response.json())
             .then((data) => {
-                iziToast.success({
-                    title: 'Success',
-                    message: data.message,
-                    position: 'topRight'
-                });
+                if(data.status == "Success"){
+                    iziToast.success({
+                        title: 'Success',
+                        message: data.message,
+                        position: 'topRight'
+                    });
+                }else{
+                    iziToast.error({
+                        title: 'Failure',
+                        message: data.message,
+                        position: 'topRight'
+                    });
+                }
+               
                 gettodos();
             })
             .catch((error) => {
@@ -191,11 +218,19 @@ function Taskstatus(value, done) {
         })
             .then((response) => response.json())
             .then((data) => {
-                iziToast.success({
-                    title: 'Success',
-                    message: data.message,
-                    position: 'topRight'
-                });
+                if(data.status == "Success"){
+                    iziToast.success({
+                        title: 'Success',
+                        message: data.message,
+                        position: 'topRight'
+                    });
+                }else{
+                    iziToast.error({
+                        title: 'Failure',
+                        message: data.message,
+                        position: 'topRight'
+                    });
+                }
                 gettodos();
             })
             .catch((error) => {
@@ -225,11 +260,20 @@ function removedata(value) {
     })
         .then((response) => response.json())
         .then((data) => {
-            iziToast.success({
-                title: 'Success',
-                message: data.message,
-                position: 'topRight',
-            });
+            if(data.status == 'Success'){
+                iziToast.success({
+                    title: 'Success',
+                    message: data.message,
+                    position: 'topRight',
+                });
+            }else{
+                iziToast.error({
+                    title: 'Failure',
+                    message: data.message,
+                    position: 'topRight',
+                });
+            }
+            
             gettodos();
         })
         .catch((error) => {

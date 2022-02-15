@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 html, body{
-    background: #5b4777;
+    background: #2a1d3d;
 }
 
 header , h1{
@@ -114,6 +114,10 @@ span{
 .todo-item{
     margin-left: 4px;
 }
+.todo-items{
+    text-align: center;
+    margin: 4px;
+}
 .new-item{
     padding: 10px;
     background-color: white;
@@ -157,6 +161,12 @@ span{
     transform: translateY(8rem) rotateZ(20deg);
     opacity: 0;
 }
+#error{
+    /* margin-left: 8px; */
+    margin-top: -34px;
+    color: #f00f0f;
+    height: 11px;
+}
 
 /*----Media Query Section----*/
 @media screen and (max-width: 986px) {
@@ -183,11 +193,12 @@ span{
         margin-left: 12px;
         margin-left: 16px;
     }
+    #error{
+        margin-left: 18px;
+        margin-top: -45px;
+        color: #f00f0f;
+        height: 11px;
+    }
   }
-  #error{
-      margin-left: 18px;
-      margin-top: -27px;
-      color: #fc4a1a;
-      height: 11px;
-  }
+  
 

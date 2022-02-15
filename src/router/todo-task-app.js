@@ -7,9 +7,9 @@ router.post('/addTask', async (req, res) => {
         const task = await new Task(req.body)
     try {
         await task.save()
-        res.status(201).send({task,message:'Task Added successfully'})
+        res.status(201).send({task,message:'Task Added successfully',status:'Success'})
     } catch (e) {
-        res.status(400).send(e)
+        res.status(400).send({message:'path task is required',status:'Failure'})
     }
 })
 router.get('/fetchTask', async(req, res)=>{
@@ -30,7 +30,7 @@ router.patch('/tasks/taskUpdated', async (req, res) => {
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
-        res.status(400).send({ error: 'Invalid Updates..!' })
+        res.status(400).send({ message: 'Invalid Updates..!',status:'Failure' })
     }
 
     try {
@@ -42,7 +42,7 @@ router.patch('/tasks/taskUpdated', async (req, res) => {
 
         updates.forEach((update) => task[update] = req.body[update])
         await task.save()
-        res.status(200).send({task,message:'Task Updated Successfully'})
+        res.status(200).send({task,message:'Task Updated Successfully',status:'Success'})
     } catch (e) {
         res.status(400).send(e)
     }
@@ -55,9 +55,9 @@ router.delete('/tasks/deleteTask', async(req,res)=>{
         if(!task){
             res.status(404).send()
         }
-        res.status(200).send({task,message: 'Task Deleted..!'})
+        res.status(200).send({task,message: 'Task Deleted..!',status:'Success'})
     }catch(e){
-        res.status(500).send(e)
+        res.status(500).send({message:'Id is required',status:'Failure'})
     }
 })
 
