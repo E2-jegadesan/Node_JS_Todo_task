@@ -99,16 +99,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         .catch((error) => {
                             console.error('Error:', error);
                         });
-
                 }
             }
         }
         textInput.value = '';
     });
-
     gettodos();
 });
-
 addtasklist.addEventListener('click', function (e) {
     const item = e.target;
     if (item.classList[0] === 'trash-btn') {
@@ -128,7 +125,6 @@ addtasklist.addEventListener('click', function (e) {
         textInput.value = todoIndex;
     }
 });
-
 const gettodos = async function () {
 
     await fetch('http://localhost:3000/fetchTask', {
@@ -161,11 +157,9 @@ const gettodos = async function () {
                     <li class="todo-items">No record found</li>     
                     </div>`
     }
-
     addtasklist.innerHTML = html;
     Taskstatus();
 }
-
 function Taskstatus(value, done) {
     var id = value
     if (done === "false") {
@@ -196,7 +190,6 @@ function Taskstatus(value, done) {
                         position: 'topRight'
                     });
                 }
-               
                 gettodos();
             })
             .catch((error) => {
@@ -280,7 +273,6 @@ function removedata(value) {
             console.log('Error:', error)
         })
 }
-
 function tabs(tabIndex) {
     document.getElementById('tab1').style.display = "inline";
     document.getElementById('tab2').style.display = "inline";
@@ -299,7 +291,6 @@ function tabs(tabIndex) {
     }
     document.getElementById('tab' + tabIndex).classList.add("active");
 }
-
 function filterTodo(e) {
     const todos = addtasklist.childNodes;
     todos.forEach(function (todo) {
@@ -331,5 +322,3 @@ function filterTodo(e) {
         }
     });
 }
-
-
