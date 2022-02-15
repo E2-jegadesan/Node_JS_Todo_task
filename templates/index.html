@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Task</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+</head>
+
+<body>
+    <div class="container">
+        <h1><i class="fas fa-check-circle"></i><span>Todo</span>List</h1><br>
+        <input type="text" placeholder="Add your Task.." class="input-text" id="InputText" required>
+        <button class="add-button" type="submit"><i class="fas fa-plus-square"></i></button><br><br>
+        <p id="error"></p><br>
+        <div class="tab" name="todos">
+            <input type="hidden" name="taskId" id="taskId" value=0>
+            <button class="tabs" id="tab1" onclick="tabs(1);" value="taball">All</button>
+            <button class="tabs" id="tab2" onclick="tabs(2);" value="tabcompleted">Completed</button>
+            <button class="tabs" id="tab3" onclick="tabs(3);" value="tabuncompleted">Incompleted</button>
+        </div><br>
+        <div class="todo-container">
+            <ul class="todo-list" id="todoLists">
+            </ul>
+        </div>
+        
+        <ul id="UlDiv" class="UlDiv"></ul>
+    </div>
+    <script src="index.js"></script>
+    <body onload="document.getElementById('tab1').click();">
+</body>
+</html>

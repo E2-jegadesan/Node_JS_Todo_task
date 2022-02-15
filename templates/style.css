@@ -1,0 +1,193 @@
+*{
+    margin:0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+html, body{
+    background: #5b4777;
+}
+
+header , h1{
+    color: #fc4a1a;
+    margin-top: 50px;
+    text-shadow: 3px 2px black;
+    margin-left: 113px;
+}
+#mess{
+    margin-left: 0%;
+    color: #f78733;
+    text-shadow: 3px 2px black;
+}
+span{
+    color:#f78733 ;
+    text-shadow: 3px 3px black;
+}
+
+.input-text{
+    width: 345px;
+    overflow: hidden;
+}
+.input-text , .add-button{
+    padding: 3px;
+    font-size: 25px;
+    border: none;
+    background: white;
+    display:inline;
+}
+.add-button {
+    padding-right:9px;
+    padding-left: 9px;
+    color:#fc4a1a;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/*----filter tab section----*/
+.tab {
+    width: 388px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+.tab button {
+    background-color: inherit;
+    float:center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    margin-right: 0%;
+    margin-left: 32px;
+  }
+  .taball{
+      margin-left: 27px;
+  }
+  .tabs{
+    color: black;
+    background-color: white;
+   
+}
+
+.tabs.active{
+    color: white;
+    background-color: black;
+}
+/*----task section----*/
+.container{
+    min-height: 20px;
+    padding: 5px;
+    margin: auto;
+    width: 400px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.todo-list{
+    min-width: 30%;
+    padding: 0px;
+    list-style-type: none;
+}
+.todo{
+    width: 368px;
+    overflow: hidden;
+    margin: 5px 0px;
+    background:white;
+    color: black;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.5s ease;
+
+}
+.todo li {
+    min-height: 18px;
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.todo-item{
+    margin-left: 4px;
+}
+.new-item{
+    padding: 10px;
+    background-color: white;
+    list-style-type: none;
+}
+.newtodo{
+    width: 388px;
+}
+.todo-list{
+    width: 388px;
+    height: 388px;
+    overflow: auto;
+}
+
+/*---todo task button section---*/ 
+
+.trash-btn, .complete-btn, .edit-btn{
+    background:rgb(221, 50, 50);
+    color: black;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size:1rem;
+}
+.complete-btn{
+    background:rgb(90, 206, 90);
+}
+.edit-btn{
+    background-color: rgb(132, 146, 160);
+    color: black;
+}
+.fa-trash, .fa-check, .fa-edit{
+    pointer-events: none;
+}
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+.fall {
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
+}
+
+/*----Media Query Section----*/
+@media screen and (max-width: 986px) {
+    .container{
+        overflow: hidden;
+    }
+    .input-text{
+        width: 298px;
+        margin: 14px;
+        margin-left: 16px;
+    }
+    .tab{
+        width: 357px;
+        margin: 13px;
+        margin-left: 16px;
+    }
+    .todo{
+        width: 353px;
+        margin: 12px;
+        margin-left: 16px;
+    }
+    .newtodo{
+        width: 353px;
+        margin-left: 12px;
+        margin-left: 16px;
+    }
+  }
+  #error{
+      margin-left: 18px;
+      margin-top: -27px;
+      color: #fc4a1a;
+      height: 11px;
+  }
+
