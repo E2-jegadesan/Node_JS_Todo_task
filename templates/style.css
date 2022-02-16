@@ -4,23 +4,20 @@
     box-sizing: border-box;
 }
 html, body{
-    background: #204141;
+    background: #c4ced8;
 }
 
 header , h1{
-    color: #fc4a1a;
+    color: #479c25;
     margin-top: 50px;
-    text-shadow: 3px 2px black;
     margin-left: 113px;
 }
 #mess{
     margin-left: 0%;
     color: #f78733;
-    text-shadow: 3px 2px black;
 }
 span{
-    color:#f78733 ;
-    text-shadow: 3px 3px black;
+    color:#000000 ;
 }
 
 .input-text{
@@ -74,7 +71,7 @@ span{
     color: white;
     background-color: black;
 }
-/*----task section----*/
+/*---- todo list task section----*/
 .container{
     min-height: 20px;
     padding: 5px;
@@ -176,10 +173,10 @@ span{
     opacity: 0;
 }
 #error{
-    /* margin-left: 8px; */
     margin-top: -34px;
-    color: #f00f0f;
+    color: red;
     height: 11px;
+    font-weight: 500;
 }
 
 /*----Media Query Section----*/
@@ -223,6 +220,7 @@ span{
         justify-content: center;
         margin: 4px;
         margin-left: 120px;
+
     }
   }
   

@@ -1,20 +1,23 @@
+// Query Selector
 const textInput = document.querySelector('.input-text');
 const addbtn = document.querySelector('.add-button');
 let addtasklist = document.getElementById('todoLists');
 const filterOption = document.querySelector('.tab');
 filterOption.addEventListener("click", filterTodo);
 
+// Global varibles
 let newdata = [];
 let choice = "ADD"
 let EditedIndex;
 
+// ADD Function
 document.addEventListener("DOMContentLoaded", () => {
     addbtn.addEventListener("click", (e) => {
         if (choice === "ADD") {
             e.preventDefault();
             const items = textInput.value.trim();
             if (items == 0) {
-                const msg = "Please enter the task"
+                const msg = "Please Enter the Task"
                 const error = document.getElementById('error');
                 error.innerHTML = msg
 
@@ -106,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     gettodos();
 });
+// Todo List button function
 addtasklist.addEventListener('click', function (e) {
     const item = e.target;
     if (item.classList[0] === 'trash-btn') {
@@ -125,6 +129,7 @@ addtasklist.addEventListener('click', function (e) {
         textInput.value = todoIndex;
     }
 });
+// Display todos Function
 const gettodos = async function () {
 
     await fetch('http://localhost:3000/fetchTask', {
@@ -135,7 +140,17 @@ const gettodos = async function () {
     })
         .then((response) => response.json())
         .then((data) => {
+            
             newdata = data;
+            if(data.status == 'Success'){
+                return;
+            }else{
+                iziToast.error({
+                    title: 'Failure',
+                    message: data.message,
+                    position: 'topRight'
+                });
+            }
         })
         .catch((error) => {
             console.log('Error:', error)
@@ -160,6 +175,7 @@ const gettodos = async function () {
     addtasklist.innerHTML = html;
     Taskstatus();
 }
+// Task Complete or Incomplete Button Function
 function Taskstatus(value, done) {
     var id = value
     if (done === "false") {
@@ -231,14 +247,13 @@ function Taskstatus(value, done) {
             });
     }
 }
-
+// Edit Function
 function updatedata(value) {
     choice = "SAVE"
     EditedIndex = value
     addbtn.innerHTML = '<i class="fas fa-save"></i>'
-
 }
-
+// Remove Function
 function removedata(value) {
     console.log(value)
     fetch('http://localhost:3000/tasks/deleteTask', {
@@ -273,6 +288,7 @@ function removedata(value) {
             console.log('Error:', error)
         })
 }
+// Filter Tab Function
 function tabs(tabIndex) {
     document.getElementById('tab1').style.display = "inline";
     document.getElementById('tab2').style.display = "inline";
@@ -291,6 +307,7 @@ function tabs(tabIndex) {
     }
     document.getElementById('tab' + tabIndex).classList.add("active");
 }
+// Filter todo Function
 function filterTodo(e) {
     const todos = addtasklist.childNodes;
     todos.forEach(function (todo) {
@@ -308,7 +325,6 @@ function filterTodo(e) {
                 else {
                     todo.style.display = "none";
                 }
-
                 break;
             case "tabuncompleted":
                 if (!todo.classList.contains("completed")) {
@@ -317,8 +333,6 @@ function filterTodo(e) {
                     todo.style.display = "none";
                 }
                 break;
-
-
         }
     });
 }
