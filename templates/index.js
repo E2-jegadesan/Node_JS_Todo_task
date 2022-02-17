@@ -10,12 +10,31 @@ let newdata = [];
 let choice = "ADD"
 let EditedIndex;
 
+function getcall(){
+    let html = '';
+    if (newdata.length > 0) {
+        newdata.forEach((item) => {
+            html += `<div class="todo ${item.completed ? 'completed' : ''}">
+                    <li class="todo-item">${item.datas}</li>
+                    <button type="button"  class="complete-btn" onclick="Taskstatus('${item._id}','${item.completed}')"><i class="fas fa-check"></i></button>
+                    <button type="button"  class="edit-btn" onclick="updatedata('${item._id}','${item.datas}')"><i class="fas fa-edit" ></i></button>
+                    <button type="button"  class="trash-btn" onclick="removedata('${item._id}')"><i class="fas fa-trash"></i></button>     
+                    </div>`
+        });
+    } else {
+        html += `<div class="todo1">
+                    <li class="todo-items">No record found</li>     
+                    </div>`
+    }
+    addtasklist.innerHTML = html;
+}
+
 // ADD Function
 document.addEventListener("DOMContentLoaded", () => {
     addbtn.addEventListener("click", (e) => {
+        const items = textInput.value.trim();
         if (choice === "ADD") {
             e.preventDefault();
-            const items = textInput.value.trim();
             if (items == 0) {
                 const msg = "Please Enter the Task"
                 const error = document.getElementById('error');
@@ -56,20 +75,25 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
 
                     .catch((error) => {
-                        console.error('Error:', error);
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Something went wrong',
+                            position: 'topRight'
+                        });
                     });
                 textInput.value = '';
                 gettodos();
 
             }
-        } if (choice === "SAVE") {
+        } 
+        if (choice === "SAVE") {
             choice = "ADD"
             addbtn.innerHTML = '<i class="fas fa-plus-square"></i>'
             var Data = newdata
             var InputValue = EditedIndex;
             for (var i = 0; i < Data.length; i++) {
                 if (InputValue == Data[i]._id) {
-                    var EditedInput = document.getElementById("InputText").value;
+                    var EditedInput = document.getElementById("InputText").value.trim();
                     fetch('http://localhost:3000/tasks/taskUpdated', {
                         method: 'PATCH',
                         headers: {
@@ -82,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                         .then((response) => response.json())
                         .then((data) => {
-                            console.log(data)
                             if(data.status == 'Success'){
                                 iziToast.success({
                                     title: 'Success',
@@ -100,7 +123,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             gettodos();
                         })
                         .catch((error) => {
-                            console.error('Error:', error);
+                            iziToast.error({
+                                title: 'Error',
+                                message: 'Something went wrong',
+                                position: 'topRight'
+                            });
                         });
                 }
             }
@@ -112,21 +139,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // Todo List button function
 addtasklist.addEventListener('click', function (e) {
     const item = e.target;
-    if (item.classList[0] === 'trash-btn') {
-        const newdata = item.parentElement;
-        newdata.classList.add("fall");
-        newdata.addEventListener('transitionend', function () {
-            newdata.remove();
-        });
-    }
     if (item.classList[0] === "complete-btn") {
         const newdata = item.parentElement;
         newdata.classList.toggle("completed");
-    }
-    if (item.classList[0] === "edit-btn") {
-        const newdata = item.parentElement;
-        const todoIndex = newdata.children[0].innerText;
-        textInput.value = todoIndex;
     }
 });
 // Display todos Function
@@ -140,47 +155,27 @@ const gettodos = async function () {
     })
         .then((response) => response.json())
         .then((data) => {
-            
             newdata = data;
             if(data.status == 'Success'){
                 return;
-            }else{
-                iziToast.error({
-                    title: 'Failure',
-                    message: data.message,
-                    position: 'topRight'
-                });
             }
+        
         })
-        .catch((error) => {
-            console.log('Error:', error)
+        .catch(() => {
+            iziToast.error({
+                title: 'Error',
+                message: 'Something went wrong',
+                position: 'topRight'
+            });
         })
-    console.log(newdata)
-    let html = '';
-    console.log(newdata.length)
-    if (newdata.length > 0) {
-        newdata.forEach((item) => {
-            html += `<div class="todo ${item.completed ? 'completed' : ''}">
-                    <li class="todo-item">${item.datas}</li>
-                    <button type="button"  class="complete-btn" onclick="Taskstatus('${item._id}','${item.completed}')"><i class="fas fa-check"></i></button>
-                    <button type="button"  class="edit-btn" onclick="updatedata('${item._id}')"><i class="fas fa-edit" ></i></button>
-                    <button type="button"  class="trash-btn" onclick="removedata('${item._id}')"><i class="fas fa-trash"></i></button>     
-                    </div>`
-        });
-    } else {
-        html += `<div class="todo1">
-                    <li class="todo-items">No record found</li>     
-                    </div>`
-    }
-    addtasklist.innerHTML = html;
-    Taskstatus();
+        getcall()
+        Taskstatus();
 }
 // Task Complete or Incomplete Button Function
 function Taskstatus(value, done) {
     var id = value
     if (done === "false") {
         done = "true";
-        console.log(done)
         fetch('http://localhost:3000/tasks/taskUpdated', {
             method: 'PATCH',
             headers: {
@@ -208,13 +203,16 @@ function Taskstatus(value, done) {
                 }
                 gettodos();
             })
-            .catch((error) => {
-                console.error('Error:', error);
+            .catch(() => {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Something went wrong',
+                    position: 'topRight'
+                });;
             });
     }
     else if (done === "true") {
         done = "false";
-        console.log("else case", done)
         fetch('http://localhost:3000/tasks/taskUpdated', {
             method: 'PATCH',
             headers: {
@@ -243,19 +241,25 @@ function Taskstatus(value, done) {
                 gettodos();
             })
             .catch((error) => {
-                console.error('Error:', error);
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Something went wrong',
+                    position: 'topRight'
+                });
             });
     }
 }
 // Edit Function
-function updatedata(value) {
+function updatedata(value,data) {
+    var todoIndex = data;
+    textInput.value = todoIndex;
+    
     choice = "SAVE"
     EditedIndex = value
     addbtn.innerHTML = '<i class="fas fa-save"></i>'
 }
 // Remove Function
 function removedata(value) {
-    console.log(value)
     fetch('http://localhost:3000/tasks/deleteTask', {
         method: 'DELETE',
         headers: {
@@ -285,7 +289,11 @@ function removedata(value) {
             gettodos();
         })
         .catch((error) => {
-            console.log('Error:', error)
+            iziToast.error({
+                title: 'Error',
+                message: 'Something went wrong',
+                position: 'topRight'
+            });
         })
 }
 // Filter Tab Function
