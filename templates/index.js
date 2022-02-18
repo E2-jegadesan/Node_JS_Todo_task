@@ -81,57 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             position: 'topRight'
                         });
                     });
-                textInput.value = '';
+                // textInput.value = '';
                 gettodos();
 
             }
         } 
-        if (choice === "SAVE") {
-            choice = "ADD"
-            addbtn.innerHTML = '<i class="fas fa-plus-square"></i>'
-            var Data = newdata
-            var InputValue = EditedIndex;
-            for (var i = 0; i < Data.length; i++) {
-                if (InputValue == Data[i]._id) {
-                    var EditedInput = document.getElementById("InputText").value.trim();
-                    fetch('http://localhost:3000/tasks/taskUpdated', {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            datas: EditedInput,
-                            _id: InputValue
-                        }),
-                    })
-                        .then((response) => response.json())
-                        .then((data) => {
-                            if(data.status == 'Success'){
-                                iziToast.success({
-                                    title: 'Success',
-                                    message: data.message,
-                                    position: 'topRight'
-                                });
-                            }else{
-                                iziToast.error({
-                                    title: 'Failure',
-                                    message: data.message,
-                                    position: 'topRight'
-                                });
-                            }
-                           
-                            gettodos();
-                        })
-                        .catch((error) => {
-                            iziToast.error({
-                                title: 'Error',
-                                message: 'Something went wrong',
-                                position: 'topRight'
-                            });
-                        });
-                }
-            }
-        }
+        edit()
         textInput.value = '';
     });
     gettodos();
@@ -253,10 +208,58 @@ function Taskstatus(value, done) {
 function updatedata(value,data) {
     var todoIndex = data;
     textInput.value = todoIndex;
-    
     choice = "SAVE"
     EditedIndex = value
     addbtn.innerHTML = '<i class="fas fa-save"></i>'
+}
+function edit(){
+    if (choice === "SAVE") {
+        choice = "ADD"
+        addbtn.innerHTML = '<i class="fas fa-plus-square"></i>'
+        var Data = newdata
+        var InputValue = EditedIndex;
+        for (var i = 0; i < Data.length; i++) {
+            if (InputValue == Data[i]._id) {
+                var EditedInput = document.getElementById("InputText").value.trim();
+                fetch('http://localhost:3000/tasks/taskUpdated', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        datas: EditedInput,
+                        _id: InputValue
+                    }),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if(data.status == 'Success'){
+                            iziToast.success({
+                                title: 'Success',
+                                message: data.message,
+                                position: 'topRight'
+                            });
+                        }else{
+                            iziToast.error({
+                                title: 'Failure',
+                                message: data.message,
+                                position: 'topRight'
+                            });
+                        }
+                       
+                        gettodos();
+                    })
+                    .catch((error) => {
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Something went wrong',
+                            position: 'topRight'
+                        });
+                    });
+            }
+        }
+    }
+
 }
 // Remove Function
 function removedata(value) {

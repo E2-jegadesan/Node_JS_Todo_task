@@ -1,10 +1,22 @@
-function msg(message,status){
+function Successmsg(message){
     var response = {
         message:message,
-        status:status
+        status:"Success"
     }
     return response
 }
 
-module.exports = msg
+function Failuremsg(message){
+    var response ={
+        message:message,
+        status:"Failure"
+    }
+    return response
+}
+
+module.exports = {
+    Successmsg:Successmsg,
+    Failuremsg:Failuremsg
+
+}
 
