@@ -35,14 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const items = textInput.value.trim();
         if (choice === "ADD") {
             e.preventDefault();
+            let msg = ""
+            let error = document.getElementById('error');
             if (items == 0) {
-                const msg = "Please Enter the Task"
-                const error = document.getElementById('error');
+                msg = "Please Enter the Task"
+                error = document.getElementById('error');
                 error.innerHTML = msg
-
                 setTimeout(() => {
-                    const msg = ""
-                    const error = document.getElementById('error');
+                    msg =""
                     error.innerHTML = msg
                 }, 2000);
 
@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             position: 'topRight'
                         });
                     });
-                // textInput.value = '';
                 gettodos();
 
             }
@@ -91,14 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     gettodos();
 });
-// Todo List button function
-addtasklist.addEventListener('click', function (e) {
-    const item = e.target;
-    if (item.classList[0] === "complete-btn") {
-        const newdata = item.parentElement;
-        newdata.classList.toggle("completed");
-    }
-});
+
 // Display todos Function
 const gettodos = async function () {
 
@@ -249,7 +241,7 @@ function edit(){
                        
                         gettodos();
                     })
-                    .catch((error) => {
+                    .catch((e) => {
                         iziToast.error({
                             title: 'Error',
                             message: 'Something went wrong',
@@ -261,7 +253,7 @@ function edit(){
     }
 
 }
-// Remove Function
+// Delete  Function
 function removedata(value) {
     fetch('http://localhost:3000/tasks/deleteTask', {
         method: 'DELETE',
