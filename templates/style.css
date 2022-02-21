@@ -164,11 +164,19 @@ html, body {
 @media only screen and (max-width: 986px) {
     .container .input-text{
         width: 80%;
+        height: 5%;
+    }
+    .container .add-button{
+        height: 5%;
     }
     .container .tab{
+        height: 5%;
         width:92%;
         margin-left: 13px;
 
+    }
+    .todo1{
+        height: 8%;
     }
     .todo-list{
         width: 91%;
