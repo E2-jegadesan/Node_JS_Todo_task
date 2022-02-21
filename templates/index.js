@@ -1,13 +1,13 @@
 // Query Selector
 const textInput = document.querySelector('.input-text');
-const addbtn = document.querySelector('.add-button');
+let addbtn = document.querySelector('.add-button');
+let savebtn = document.querySelector('.save-button');
 let addtasklist = document.getElementById('todoLists');
 const filterOption = document.querySelector('.tab');
 filterOption.addEventListener("click", filterTodo);
 
 // Global varibles
 let newdata = [];
-let choice = "ADD"
 let EditedIndex;
 
 function getcall(){
@@ -33,7 +33,6 @@ function getcall(){
 document.addEventListener("DOMContentLoaded", () => {
     addbtn.addEventListener("click", (e) => {
         const items = textInput.value.trim();
-        if (choice === "ADD") {
             e.preventDefault();
             let msg = ""
             let error = document.getElementById('error');
@@ -42,10 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 error = document.getElementById('error');
                 error.innerHTML = msg
                 setTimeout(() => {
-                    msg =""
+                    msg = ""
                     error.innerHTML = msg
                 }, 2000);
-
+    
                 return;
             } else {
                 fetch('http://localhost:3000/addTask', {
@@ -65,16 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 message: data.message,
                                 position: 'topRight'
                             });
-                        }else{
-                            iziToast.error({
-                                title: 'Failure',
-                                message: data.message,
-                                position: 'topRight'
-                            });
                         }
                     })
-
-                    .catch((error) => {
+                    .catch((e) => {
                         iziToast.error({
                             title: 'Error',
                             message: 'Something went wrong',
@@ -82,10 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
                     });
                 gettodos();
-
             }
-        } 
-        edit()
         textInput.value = '';
     });
     gettodos();
@@ -187,7 +176,7 @@ function Taskstatus(value, done) {
                 }
                 gettodos();
             })
-            .catch((error) => {
+            .catch((e) => {
                 iziToast.error({
                     title: 'Error',
                     message: 'Something went wrong',
@@ -200,14 +189,10 @@ function Taskstatus(value, done) {
 function updatedata(value,data) {
     var todoIndex = data;
     textInput.value = todoIndex;
-    choice = "SAVE"
     EditedIndex = value
-    addbtn.innerHTML = '<i class="fas fa-save"></i>'
-}
-function edit(){
-    if (choice === "SAVE") {
-        choice = "ADD"
-        addbtn.innerHTML = '<i class="fas fa-plus-square"></i>'
+    addbtn.style.display = "none";
+    savebtn.style.display = "inline";
+    savebtn.addEventListener('click', function () {
         var Data = newdata
         var InputValue = EditedIndex;
         for (var i = 0; i < Data.length; i++) {
@@ -241,7 +226,7 @@ function edit(){
                        
                         gettodos();
                     })
-                    .catch((e) => {
+                    .catch((error) => {
                         iziToast.error({
                             title: 'Error',
                             message: 'Something went wrong',
@@ -250,10 +235,14 @@ function edit(){
                     });
             }
         }
-    }
+        textInput.value ="";
+        addbtn.style.display = "inline";
+        savebtn.style.display = "none";
+    })
 
 }
-// Delete  Function
+       
+// Remove Function
 function removedata(value) {
     fetch('http://localhost:3000/tasks/deleteTask', {
         method: 'DELETE',
