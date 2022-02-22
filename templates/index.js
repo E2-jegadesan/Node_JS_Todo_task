@@ -219,7 +219,7 @@ savebtn.addEventListener('click', function () {
                     } else if (data.status == 'Failure') {
                         iziToast.error({
                             title: 'Failure',
-                            message: "error",
+                            message: data.message,
                             position: 'topRight'
                         });
                     }

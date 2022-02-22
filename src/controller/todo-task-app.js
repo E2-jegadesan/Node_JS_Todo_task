@@ -33,14 +33,14 @@ async function taskUpdated(req, res) {
         const task = await Task.findByIdAndUpdate(req.body._id)
 
         if (!task) {
-            res.status(404).send(e)
+            res.status(404).send(msg.Failuremsg('Unable to find datas'))
         }
 
         updates.forEach((update) => task[update] = req.body[update])
         await task.save()
         res.status(200).send(msg.Successmsg('Task Updated Successfully'))
     } catch (e) {
-        res.status(400).send(msg.Failuremsg(e))
+        res.status(400).send(msg.Failuremsg('modification error'))
     }
 }
 
@@ -49,7 +49,7 @@ async function deleteTask(req, res) {
     try {
         const task = await Task.findByIdAndDelete({ _id: req.body._id })
         if (!task) {
-            res.status(404).send(e)
+            res.status(404).send(msg.Failuremsg(e))
         }
         res.status(200).send(msg.Successmsg('Task Deleted Successfully'))
     } catch (e) {
