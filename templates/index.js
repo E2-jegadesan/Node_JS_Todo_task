@@ -1,4 +1,3 @@
-// Query Selector
 const textInput = document.querySelector('.input-text');
 let addbtn = document.querySelector('.add-button');
 let savebtn = document.querySelector('.save-button');
@@ -6,11 +5,9 @@ let addtasklist = document.getElementById('todoLists');
 const filterOption = document.querySelector('.tab');
 filterOption.addEventListener("click", filterTodo);
 
-// Global varibles
 let newdata = [];
-let EditedIndex;
 
-function getcall(){
+function getcall() {
     let html = '';
     if (newdata.length > 0) {
         newdata.forEach((item) => {
@@ -33,48 +30,48 @@ function getcall(){
 document.addEventListener("DOMContentLoaded", () => {
     addbtn.addEventListener("click", (e) => {
         const items = textInput.value.trim();
-            e.preventDefault();
-            let msg = ""
-            let error = document.getElementById('error');
-            if (items == 0) {
-                msg = "Please Enter the Task"
-                error = document.getElementById('error');
+        e.preventDefault();
+        let msg = ""
+        let error = document.getElementById('error');
+        if (items == 0) {
+            msg = "Please Enter the Task"
+            error = document.getElementById('error');
+            error.innerHTML = msg
+            setTimeout(() => {
+                msg = ""
                 error.innerHTML = msg
-                setTimeout(() => {
-                    msg = ""
-                    error.innerHTML = msg
-                }, 2000);
-    
-                return;
-            } else {
-                fetch('http://localhost:3000/addTask', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        datas: textInput.value
-                    }),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if(data.status == 'Success'){
-                            iziToast.success({
-                                title: 'Success',
-                                message: data.message,
-                                position: 'topRight'
-                            });
-                        }
-                    })
-                    .catch((e) => {
-                        iziToast.error({
-                            title: 'Error',
-                            message: 'Something went wrong',
+            }, 2000);
+
+            return;
+        } else {
+            fetch('http://localhost:3000/addTask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    datas: textInput.value
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status == 'Success') {
+                        iziToast.success({
+                            title: 'Success',
+                            message: data.message,
                             position: 'topRight'
                         });
+                    }
+                })
+                .catch(() => {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Something went wrong',
+                        position: 'topRight'
                     });
-                gettodos();
-            }
+                });
+            gettodos();
+        }
         textInput.value = '';
     });
     gettodos();
@@ -92,10 +89,10 @@ const gettodos = async function () {
         .then((response) => response.json())
         .then((data) => {
             newdata = data;
-            if(data.status == 'Success'){
+            if (data.status == 'Success') {
                 return;
             }
-        
+
         })
         .catch(() => {
             iziToast.error({
@@ -104,9 +101,10 @@ const gettodos = async function () {
                 position: 'topRight'
             });
         })
-        getcall()
-        Taskstatus();
+    getcall();
+    Taskstatus();
 }
+
 // Task Complete or Incomplete Button Function
 function Taskstatus(value, done) {
     var id = value
@@ -124,13 +122,13 @@ function Taskstatus(value, done) {
         })
             .then((response) => response.json())
             .then((data) => {
-                if(data.status == "Success"){
+                if (data.status == "Success") {
                     iziToast.success({
                         title: 'Success',
                         message: data.message,
                         position: 'topRight'
                     });
-                }else{
+                } else {
                     iziToast.error({
                         title: 'Failure',
                         message: data.message,
@@ -161,13 +159,13 @@ function Taskstatus(value, done) {
         })
             .then((response) => response.json())
             .then((data) => {
-                if(data.status == "Success"){
+                if (data.status == "Success") {
                     iziToast.success({
                         title: 'Success',
                         message: data.message,
                         position: 'topRight'
                     });
-                }else{
+                } else {
                     iziToast.error({
                         title: 'Failure',
                         message: data.message,
@@ -185,63 +183,62 @@ function Taskstatus(value, done) {
             });
     }
 }
+
 // Edit Function
-function updatedata(value,data) {
-    var todoIndex = data;
-    textInput.value = todoIndex;
+function updatedata(value, data) {
+    textInput.value = data;
     EditedIndex = value
     addbtn.style.display = "none";
     savebtn.style.display = "inline";
-    savebtn.addEventListener('click', function () {
-        var Data = newdata
-        var InputValue = EditedIndex;
-        for (var i = 0; i < Data.length; i++) {
-            if (InputValue == Data[i]._id) {
-                var EditedInput = document.getElementById("InputText").value.trim();
-                fetch('http://localhost:3000/tasks/taskUpdated', {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        datas: EditedInput,
-                        _id: InputValue
-                    }),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if(data.status == 'Success'){
-                            iziToast.success({
-                                title: 'Success',
-                                message: data.message,
-                                position: 'topRight'
-                            });
-                        }else{
-                            iziToast.error({
-                                title: 'Failure',
-                                message: data.message,
-                                position: 'topRight'
-                            });
-                        }
-                       
-                        gettodos();
-                    })
-                    .catch((error) => {
-                        iziToast.error({
-                            title: 'Error',
-                            message: 'Something went wrong',
+}
+
+savebtn.addEventListener('click', function () {
+    var Data = newdata;
+    var InputValue = EditedIndex;
+    for (var i = 0; i < Data.length; i++) {
+        if (InputValue == Data[i]._id) {
+            var EditedInput = document.getElementById("InputText").value.trim();
+            fetch('http://localhost:3000/tasks/taskUpdated', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    datas: EditedInput,
+                    _id: InputValue
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status == 'Success') {
+                        iziToast.success({
+                            title: 'Success',
+                            message: data.message,
                             position: 'topRight'
                         });
+                    } else if (data.status == 'Failure') {
+                        iziToast.error({
+                            title: 'Failure',
+                            message: "error",
+                            position: 'topRight'
+                        });
+                    }
+                    gettodos();
+                })
+                .catch(() => {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Something went wrong',
+                        position: 'topRight'
                     });
-            }
+                });
         }
-        textInput.value ="";
-        addbtn.style.display = "inline";
-        savebtn.style.display = "none";
-    })
+    }
+    textInput.value = "";
+    addbtn.style.display = "inline";
+    savebtn.style.display = "none";
+})
 
-}
-       
 // Remove Function
 function removedata(value) {
     fetch('http://localhost:3000/tasks/deleteTask', {
@@ -251,25 +248,23 @@ function removedata(value) {
         },
         body: JSON.stringify({
             _id: value
-        }),
-
+        })
     })
         .then((response) => response.json())
         .then((data) => {
-            if(data.status == 'Success'){
+            if (data.status == 'Success') {
                 iziToast.success({
                     title: 'Success',
                     message: data.message,
                     position: 'topRight',
                 });
-            }else{
+            } else {
                 iziToast.error({
                     title: 'Failure',
                     message: data.message,
                     position: 'topRight',
                 });
             }
-            
             gettodos();
         })
         .catch((error) => {
@@ -280,6 +275,7 @@ function removedata(value) {
             });
         })
 }
+
 // Filter Tab Function
 function tabs(tabIndex) {
     document.getElementById('tab1').style.display = "inline";
@@ -299,6 +295,7 @@ function tabs(tabIndex) {
     }
     document.getElementById('tab' + tabIndex).classList.add("active");
 }
+
 // Filter todo Function
 function filterTodo(e) {
     const todos = addtasklist.childNodes;
