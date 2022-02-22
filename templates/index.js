@@ -11,6 +11,7 @@ function getcall() {
     let html = '';
     if (newdata.length > 0) {
         newdata.forEach((item) => {
+            console.log(typeof(item.completed))
             html += `<div class="todo ${item.completed ? 'completed' : ''}">
                     <li class="todo-item">${item.datas}</li>
                     <button type="button"  class="complete-btn" onclick="Taskstatus('${item._id}','${item.completed}')"><i class="fas fa-check"></i></button>
@@ -102,21 +103,22 @@ const gettodos = async function () {
             });
         })
     getcall();
-    Taskstatus();
+    // Taskstatus();
 }
 
 // Task Complete or Incomplete Button Function
 function Taskstatus(value, done) {
-    var id = value
-    if (done === "false") {
-        done = "true";
+    var id = value;
+    let Done = JSON.parse(done)
+    if (Done === false) {
+        Done = true;
         fetch('http://localhost:3000/tasks/taskUpdated', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                completed: done,
+                completed: Done,
                 _id: id
             }),
         })
@@ -145,15 +147,15 @@ function Taskstatus(value, done) {
                 });;
             });
     }
-    else if (done === "true") {
-        done = "false";
+    else if (Done === true) {
+        Done = false;
         fetch('http://localhost:3000/tasks/taskUpdated', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                completed: done,
+                completed: Done,
                 _id: id
             }),
         })
