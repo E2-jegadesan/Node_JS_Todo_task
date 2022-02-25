@@ -11,7 +11,6 @@ function getcall() {
     let html = '';
     if (newdata.length > 0) {
         newdata.forEach((item) => {
-            console.log(typeof(item.completed))
             html += `<div class="todo ${item.completed ? 'completed' : ''}">
                     <li class="todo-item">${item.datas}</li>
                     <button type="button"  class="complete-btn" onclick="Taskstatus('${item._id}','${item.completed}')"><i class="fas fa-check"></i></button>
