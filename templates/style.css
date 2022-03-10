@@ -61,7 +61,7 @@ html, body {
     height: 5%;
     width:50%;
     text-align: left;
-    margin-left: 18px;
+    margin-left: 3px;
     color:rgb(255, 0, 0);
     font-weight: 500;
 
@@ -193,6 +193,9 @@ html, body {
     .todo-list{
         width: 91%;
         margin-left: 15px;
+    }
+    .container #error{
+        margin-left: 18px;
     }
 
 }
