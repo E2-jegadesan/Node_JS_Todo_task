@@ -28,12 +28,20 @@ html, body {
 .container h1{
     height:10%;
     width:100%;
+    margin-top: 3%;
     color: #479c25;
 }
-
+span{
+    color: black;
+    font-weight: bolder;
+}
+.fa-check-circle:before, .fa-circle-check:before {
+    content: "\f058";
+    color: crimson;
+}
 .container .input-text,.add-button,.save-button{
     height: 6%;
-    width: 89%;
+    width: 88%;
     overflow: hidden;
     font-size: 25px;
     border: none;
@@ -43,7 +51,7 @@ html, body {
 .container .add-button{
     height: 6%;
     width: 10%;
-    color:#fc4a1a;
+    color:crimson;
     background: white;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -51,7 +59,7 @@ html, body {
 .container .save-button{
     height: 6%;
     width: 10%;
-    color:#fc4a1a;
+    color:crimson;
     background: white;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -61,7 +69,6 @@ html, body {
     height: 5%;
     width:50%;
     text-align: left;
-    margin-left: 3px;
     color:rgb(255, 0, 0);
     font-weight: 500;
 
@@ -84,22 +91,24 @@ html, body {
     cursor: pointer;
 }
 .tabs{
-    color: black;
+    color:black;
     background-color: white; 
 }
 .tabs.active{
     color: white;
     background-color: black;
+    width: 33%;
 }
 
 .todo-container{
-    height: 75%;
+    height: 60%;
     width: 100%;
+    margin-top: 5%;
 }
 .todo-list{
     min-width: 30%;
     width: 100%;
-    height: 100%;
+    height: 95%;
     list-style-type: none;
     overflow: auto;
 }
@@ -167,6 +176,10 @@ html, body {
 .fall {
     transform: translateY(8rem) rotateZ(20deg);
     opacity: 0;
+}
+::placeholder{
+    font-size: 20px;
+    padding: 3%;
 }
 
 

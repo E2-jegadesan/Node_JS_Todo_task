@@ -1,5 +1,5 @@
 const Task = require('../models/todo-task')
-const msg = require('../../templates/config')
+const msg = require('../../src/config/dbconfig')
 
 module.exports = {
     addTask: addTask,

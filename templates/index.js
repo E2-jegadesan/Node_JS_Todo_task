@@ -71,6 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 });
             gettodos();
+            document.querySelectorAll('.tabs').forEach((tab) => {
+                tab.classList.remove("active");
+            })
+            document.getElementById('tab' + 1).classList.add("active");
         }
         textInput.value = '';
     });
@@ -275,6 +279,10 @@ function removedata(value) {
                 position: 'topRight'
             });
         })
+        document.querySelectorAll('.tabs').forEach((tab) => {
+            tab.classList.remove("active");
+        })
+        document.getElementById('tab' + 1).classList.add("active");
 }
 
 // Filter Tab Function
